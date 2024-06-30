@@ -70,9 +70,9 @@ export const getCourses = asyncHandler(async (req, res, next) => {
   }
 
   const pages = await Course.countDocuments(JSON.parse(queryString));
-  const pageNo = parseInt(req.query.page) || 1;
+  const pageNumb = parseInt(req.query.page) || 1;
   const pageSize = parseInt(req.query.pageSize) || pages;
-  const page = (pageNo - 1) * pageSize;
+  const page = (pageNumb - 1) * pageSize;
 
   query = query.skip(page).limit(pageSize);
 
@@ -86,14 +86,14 @@ export const getCourses = asyncHandler(async (req, res, next) => {
   pagination.totalPages = Math.ceil(pages / pageSize);
   if (page * pageSize < pages && pageSize < pages) {
     pagination.next = {
-      page: pageNo + 1,
+      page: pageNumb + 1,
       pageSize,
     };
   }
 
   if (page > 0) {
     pagination.prev = {
-      page: pageNo - 1,
+      page: pageNumb - 1,
       pageSize,
     };
   }
