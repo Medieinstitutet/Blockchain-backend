@@ -7,11 +7,11 @@ const blockSchema = new mongoose.Schema({
     required: [true, 'Timestamp is required'],
   },
   lastHash: {
-    type: string,
+    type: String,
     required: [true, 'Last hash is required']
   },
   hash: {
-    type: string,
+    type: String,
     required: [true, 'Hash is required']
   },
   data: {
@@ -22,10 +22,10 @@ const blockSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'Nonce hash is required']
   },
-  Difficulty: {
+  difficulty: {
     type: Number,
     required: [true, 'Difficulty is required']
   }
 });
 
-export default mongoose.model('Block', blockSchema);
+export default mongoose.model('blockModel', blockSchema);
