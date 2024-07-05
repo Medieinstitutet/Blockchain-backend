@@ -1,13 +1,16 @@
 import User from '../models/UserModel.mjs';
 import ErrorResponse from '../models/ErrorResponseModel.mjs';
 import { asyncHandler } from '../middleware/asyncHandler.mjs';
+import Wallet from '../models/Wallet.mjs';
 
 // @desc    Register a user
 // @route   POST /api/v1/auth/register
 // @access  PUBLIC
 export const register = asyncHandler(async (req, res, next) => {
   const { name, email, password, role } = req.body;
-  const user = await User.create({ name, email, password, role });
+  const { publicKey } = new Wallet();
+
+  const user = await User.create({ name, email, password, role, publicKey });
 
   createAndSendToken(user, 201, res);
 });
@@ -23,12 +26,12 @@ export const login = asyncHandler(async (req, res, next) => {
 
   const user = await User.findOne({ email }).select('+password');
   if (!user) {
-    return next(new ErrorResponse('User does not exist', 401));
+    return next(new ErrorResponse('Invalid credentials', 401));
   }
 
   const isCorrect = await user.validatePassword(password);
   if (!isCorrect) {
-    return next(new ErrorResponse('User does not exist', 401));
+    return next(new ErrorResponse('Invalid credentials', 401));
   }
   createAndSendToken(user, 200, res);
 });
@@ -37,7 +40,7 @@ export const login = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/auth/me
 // @access  PRIVATE
 export const getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id).populate('course');
+  const user = await User.findById(req.user.id);
   res.status(200).json({
     success: true,
     statusCode: 200,
@@ -133,5 +136,12 @@ export const resetPassword = asyncHandler(async (req, res, next) => {
 const createAndSendToken = (user, statusCode, res) => {
   const token = user.generateToken();
 
-  res.status(statusCode).json({ success: true, statusCode, token });
+  res.status(statusCode).json({ 
+    success: true, 
+    statusCode, 
+    token,
+    //! data: {
+    //!   publicKey: user.publicKey
+    //! },
+  });
 };

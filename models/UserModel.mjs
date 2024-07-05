@@ -1,7 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose, { Mongoose } from 'mongoose';
 import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import Wallet from './Wallet.mjs';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -19,7 +20,7 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'manager'],
+    enum: ['user', 'admin'],
     default: 'user',
   },
   password: {
@@ -28,15 +29,16 @@ const userSchema = new mongoose.Schema({
     minlength: 6,
     select: false,
   },
+  publicKey: {
+    type: mongoose.Schema.Types.Mixed,
+    default: Wallet.publicKey,
+    required: [false, 'Public Key is required']
+  },
   resetPasswordToken: String,
   resetPasswordTokenExpire: Date,
   createdAt: {
     type: Date,
     default: Date.now,
-  },
-  course: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Course',
   },
 });
 
