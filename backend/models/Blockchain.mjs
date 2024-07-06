@@ -28,7 +28,7 @@ export default class Blockchain {
     this.chain = chain;
   }
 
-  validateTransactionData({ chain }) { 
+  validateTransactionData({ chain }) {
     for (let i = 1; i < chain.length; i++) {
       const block = chain[i];
       const transactionSet = new Set();

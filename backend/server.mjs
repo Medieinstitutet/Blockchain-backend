@@ -23,6 +23,7 @@ import PubNubServer from './pubnubServer.mjs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { errorHandler } from './middleware/errorHandler.mjs';
+import { initializeBlockchain } from './controllers/blockController.mjs';
 
 dotenv.config({ path: './config/config.env' });
 
@@ -84,6 +85,8 @@ setTimeout(() => {
 app.use('/api/v1/blockchain', blockchainRouter);
 app.use('/api/v1/block', blockRouter);
 app.use('/api/v1/wallet', transactionRouter);
+
+initializeBlockchain();
 
 const synchronize = async () => {
   let response = await fetch(`${ROOT_NODE}/api/v1/blockchain`);

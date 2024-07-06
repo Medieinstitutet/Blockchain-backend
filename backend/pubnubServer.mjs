@@ -1,4 +1,5 @@
 import PubNub from 'pubnub';
+import BlockModel from './models/BlockModel.mjs';
 
 const CHANNELS = {
   DEMO: 'DEMO',
@@ -16,10 +17,13 @@ export default class PubNubServer {
     this.pubnub.addListener(this.listener());
   }
 
-  broadcast() {
+  async broadcast() {
+    const genesisBlock = await BlockModel.findOne({ hash: '0' })
+
     this.publish({
       channel: CHANNELS.BLOCKCHAIN,
-      message: JSON.stringify(this.blockchain.chain),
+      message: JSON.stringify(genesisBlock),
+      // message: JSON.stringify(this.blockchain.chain),
     });
   }
 
