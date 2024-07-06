@@ -6,15 +6,16 @@ import { pubnubServer } from '../server.mjs';
 import Wallet from '../models/Wallet.mjs';
 import TransactionModel from '../models/TransactionModel.mjs';
 import User from '../models/UserModel.mjs';
+import { asyncHandler } from '../middleware/asyncHandler.mjs';
 export const addTransaction = (req, res, next) => {
   const { id, recipient, amount } = req.body;
-  
+
   const user = req.body;
-  
-  let transaction = transactionPool.transactionExist({  
+
+  let transaction = transactionPool.transactionExist({
     address: wallet.publicKey,
   });
-  
+
   try {
     if (transaction) {
       transaction.update({ sender: wallet, recipient, amount });
@@ -65,6 +66,11 @@ export const getTransactionPool = (req, res, next) => {
     data: transactionPool.transactionMap,
   });
 };
+
+export const listTransactions = asyncHandler(async (req, res, next) => {
+  const transactions = await TransactionModel.find();
+  res.status(200).json({ success: true, statusCode: 200, data: transactions });
+});
 
 export const mineTransactions = (req, res, next) => {
   const miner = new Miner({
