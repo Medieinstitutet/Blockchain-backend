@@ -1,3 +1,4 @@
+import BlockModel from './BlockModel.mjs';
 import Transaction from './Transaction.mjs';
 
 export default class Miner {
@@ -14,8 +15,18 @@ export default class Miner {
       Transaction.transactionReward({ miner: this.wallet })
     );
     
-    this.blockchain.addBlock({ data: validTransactions });
+    const block = this.blockchain.addBlock({ data: validTransactions });
     this.pubsub.broadcast();
+
+    BlockModel.create({
+      timestamp: block.timestamp,
+      lastHash: block.lastHash,
+      hash: block.hash,
+      data: block.data,
+      nonce: block.nonce,
+      difficulty: block.difficulty
+    });
+
     this.transactionPool.clearTransactions();
   }
 }

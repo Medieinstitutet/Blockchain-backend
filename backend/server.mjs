@@ -51,6 +51,7 @@ export const pubnubServer = new PubNubServer({
 });
 
 const app = express();
+app.use(cors());
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -65,7 +66,6 @@ const limit = rateLimit({
 });
 
 app.use(limit);
-app.use(cors());
 app.use(hpp());
 
 app.use('/api/v1/auth', authRouter);

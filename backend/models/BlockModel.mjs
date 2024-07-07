@@ -15,7 +15,7 @@ const blockSchema = new mongoose.Schema({
     required: [true, 'Hash is required']
   },
   data: {
-    type: mongoose.Schema.Types.Mixed, // Can be of mixed type
+    type: Array, // Can be of mixed type
     required: [true, 'Data is required']
   },
   nonce: {
@@ -28,4 +28,4 @@ const blockSchema = new mongoose.Schema({
   }
 });
 
-export default mongoose.model('blockModel', blockSchema);
+export default mongoose.model('BlockModel', blockSchema);

@@ -11,7 +11,7 @@ const transactionSchema = new mongoose.Schema({
   sender: {
     type: String,
     default: Wallet.publicKey,
-    required: [false, 'Sender is required'],
+    required: [true, 'Sender is required'],
   },
   recipient: {
     type: String,

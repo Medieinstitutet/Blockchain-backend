@@ -4,7 +4,8 @@
   "main": "server.mjs",
   "scripts": {
     "start": "node server.mjs",
-    "dev": "nodemon server.mjs",
+    "dev": "node server.mjs",
+    "nodemon": "nodemon server.mjs",
     "dev-node": "cross-env GENERATE_NODE_PORT='true' nodemon server.mjs"
   },
   "author": "",
