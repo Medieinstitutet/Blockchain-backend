@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { Home } from "./components/pages/Home";
 import { Layout } from "./components/routes/layout";
 import { NotFound } from "./components/routes/NotFound";
-import { Blockchain } from "./components/pages/Blockchain";
+import { Blockchain } from "./components/pages/Blocks/Blockchain";
 
 export const router = createBrowserRouter([
   {
