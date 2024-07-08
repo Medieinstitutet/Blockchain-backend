@@ -35,7 +35,7 @@ export const addTransaction = (req, res, next) => {
 
   TransactionModel.create({
     id,
-    sender: user.publicKey,
+    sender: wallet.publicKey,
     recipient,
     amount,
     outputMap,
