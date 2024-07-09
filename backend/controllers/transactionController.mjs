@@ -5,12 +5,10 @@ import Miner from '../models/Miner.mjs';
 import { pubnubServer } from '../server.mjs';
 import Wallet from '../models/Wallet.mjs';
 import TransactionModel from '../models/TransactionModel.mjs';
-import User from '../models/UserModel.mjs';
 import { asyncHandler } from '../middleware/asyncHandler.mjs';
+
 export const addTransaction = (req, res, next) => {
   const { id, recipient, amount } = req.body;
-
-  const user = req.body;
 
   let transaction = transactionPool.transactionExist({
     address: wallet.publicKey,
@@ -46,16 +44,16 @@ export const addTransaction = (req, res, next) => {
 };
 
 export const getWalletBalance = (req, res, next) => {
-  const address = User.publicKey;
+  const address = wallet.publicKey;
   const balance = Wallet.calculateBalance({
-    chain: blockchain,
+    chain: blockchain.chain,
     address,
   });
 
   res.status(200).json({
     success: true,
     statusCode: 200,
-    data: { address: address, balance: balance },
+    data: { address, balance },
   });
 };
 
@@ -85,5 +83,6 @@ export const mineTransactions = (req, res, next) => {
   res.status(200).json({
     success: true,
     statusCode: 200,
+    data: 'Transactions mined!'
   });
 };

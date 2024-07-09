@@ -23,7 +23,7 @@ import PubNubServer from './pubnubServer.mjs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { errorHandler } from './middleware/errorHandler.mjs';
-import { initializeBlockchain } from './controllers/blockController.mjs';
+import { initializeBlockchain } from './initBlockchain.mjs';
 
 dotenv.config({ path: './config/config.env' });
 

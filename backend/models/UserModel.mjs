@@ -2,7 +2,7 @@ import mongoose, { Mongoose } from 'mongoose';
 import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import Wallet from './Wallet.mjs';
+import { wallet } from '../server.mjs';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -29,10 +29,10 @@ const userSchema = new mongoose.Schema({
     minlength: 6,
     select: false,
   },
+  
   publicKey: {
-    type: mongoose.Schema.Types.Mixed,
-    default: Wallet.publicKey,
-    required: [false, 'Public Key is required']
+    type: String,
+    required: [true, 'Public Key is required']
   },
   resetPasswordToken: String,
   resetPasswordTokenExpire: Date,
@@ -55,7 +55,7 @@ userSchema.methods.validatePassword = async function (passwordToCheck) {
 };
 
 userSchema.methods.generateToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id: this._id, address: this.publicKey }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_TTL,
   });
 };
