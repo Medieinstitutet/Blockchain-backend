@@ -1,3 +1,4 @@
+import { wallet } from '../controllers/authController.mjs';
 import BlockModel from './BlockModel.mjs';
 import Transaction from './Transaction.mjs';
 
@@ -10,11 +11,16 @@ export default class Miner {
   }
 
   mineTransaction() {
+    let transaction = this.transactionPool.transactionExist({
+      address: wallet.publicKey,
+    });
+
     const validTransactions = this.transactionPool.validateTransactions();
     validTransactions.push(
-      Transaction.transactionReward({ miner: this.wallet })
+      Transaction.transactionReward({ miner: this.wallet }),
+      transaction
     );
-    
+
     const block = this.blockchain.addBlock({ data: validTransactions });
     this.pubsub.broadcast();
 
@@ -22,9 +28,9 @@ export default class Miner {
       timestamp: block.timestamp,
       lastHash: block.lastHash,
       hash: block.hash,
-      data: block,
+      data: block.data,
       nonce: block.nonce,
-      difficulty: block.difficulty
+      difficulty: block.difficulty,
     });
 
     this.transactionPool.clearTransactions();
