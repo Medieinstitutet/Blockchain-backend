@@ -22,7 +22,6 @@ export const Wallet = () => {
       <h3>Your Account</h3>
       <p>{`Address: ${wallet.address}`}</p>
       <p>{`Balance: ${wallet.balance}`}</p>
-      {console.log(wallet)}
     </ul>
   )
 }

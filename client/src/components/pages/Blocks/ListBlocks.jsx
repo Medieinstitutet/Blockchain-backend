@@ -26,7 +26,7 @@ export const ListBlocks = () => {
             <p>{`Difficulty: ${block.difficulty}`}</p>
             <p>{`Block Hash: ${block.hash}`}</p>
             <p>{`Last Block Hash: ${block.lastHash}`}</p>
-            <p>{`Transaction Data: ${JSON.stringify(...block.data)}`}</p>
+            <p>{`Transaction Data: ${JSON.stringify(block.data)}`}</p>
             <p>{`Block nonce: ${block.nonce}`}</p>
             <p>{`Block timestamp: ${block.timestamp}`}</p>
             {console.log(block.data)}

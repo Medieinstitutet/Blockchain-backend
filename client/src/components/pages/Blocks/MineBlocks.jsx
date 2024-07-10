@@ -1,12 +1,12 @@
 import { mineBlock } from "../../../services/mineBlock";
 
 export const MineBlocks = () => {
-  const handleCreateBlock = async () => mineBlock();
+  const handleMineBlock = async () => mineBlock();
 
   return (
     <>
       <div>
-        <button onClick={handleCreateBlock}>Mine Block</button>
+        <button onClick={handleMineBlock}>Mine Block</button>
       </div>
     </>
   );
