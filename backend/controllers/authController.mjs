@@ -1,15 +1,18 @@
 import User from '../models/UserModel.mjs';
 import ErrorResponse from '../models/ErrorResponseModel.mjs';
 import { asyncHandler } from '../middleware/asyncHandler.mjs';
-import { wallet } from '../server.mjs';
+import Wallet from '../models/Wallet.mjs';
+
+export let wallet;
 
 // @desc    Register a user
 // @route   POST /api/v1/auth/register
 // @access  PUBLIC
 export const register = asyncHandler(async (req, res, next) => {
   const { name, email, password, role } = req.body;
-  
-  const user = await User.create({ name, email, password, role, publicKey: wallet.publicKey });
+  wallet = new Wallet();
+  const { publicKey } = wallet;
+  const user = await User.create({ name, email, password, role, publicKey });
 
   createAndSendToken(user, 201, res);
 });
@@ -18,7 +21,7 @@ export const register = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/auth/login
 // @access  PUBLIC
 export const login = asyncHandler(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, publicKey } = req.body;
   if (!email || !password) {
     return next(new ErrorResponse('Email or password is missing', 400));
   }
@@ -32,6 +35,11 @@ export const login = asyncHandler(async (req, res, next) => {
   if (!isCorrect) {
     return next(new ErrorResponse('Invalid credentials', 401));
   }
+
+    // Instantiate the wallet with the user's public key
+    wallet = new Wallet();
+    wallet.publicKey = user.publicKey;
+
   createAndSendToken(user, 200, res);
 });
 
@@ -139,7 +147,7 @@ const createAndSendToken = (user, statusCode, res) => {
     statusCode,
     token,
     data: {
-      publicKey: wallet.publicKey
+      publicKey: user.publicKey
     },
   });
 

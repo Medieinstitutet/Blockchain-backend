@@ -22,7 +22,7 @@ export default class Miner {
       timestamp: block.timestamp,
       lastHash: block.lastHash,
       hash: block.hash,
-      data: block.data,
+      data: block,
       nonce: block.nonce,
       difficulty: block.difficulty
     });

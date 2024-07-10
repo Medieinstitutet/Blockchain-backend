@@ -1,11 +1,11 @@
 import { transactionPool } from '../server.mjs';
-import { wallet } from '../server.mjs';
 import { blockchain } from '../server.mjs';
 import Miner from '../models/Miner.mjs';
 import { pubnubServer } from '../server.mjs';
 import Wallet from '../models/Wallet.mjs';
 import TransactionModel from '../models/TransactionModel.mjs';
 import { asyncHandler } from '../middleware/asyncHandler.mjs';
+import { wallet } from './authController.mjs';
 
 export const addTransaction = (req, res, next) => {
   const { id, recipient, amount } = req.body;

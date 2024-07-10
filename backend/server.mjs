@@ -12,7 +12,6 @@ import cors from 'cors';
 
 import Blockchain from './models/Blockchain.mjs';
 import TransactionPool from './models/TransactionPool.mjs';
-import Wallet from './models/Wallet.mjs';
 import blockRouter from './routes/blockRoutes.mjs';
 import blockchainRouter from './routes/blockchainRoutes.mjs';
 import transactionRouter from './routes/transactionRoutes.mjs';
@@ -24,6 +23,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { errorHandler } from './middleware/errorHandler.mjs';
 import { initializeBlockchain } from './initBlockchain.mjs';
+import { wallet } from './controllers/authController.mjs';
 
 dotenv.config({ path: './config/config.env' });
 
@@ -42,7 +42,6 @@ global.__appdir = dirname;
 
 export const blockchain = new Blockchain();
 export const transactionPool = new TransactionPool();
-export const wallet = new Wallet();
 export const pubnubServer = new PubNubServer({
   blockchain: blockchain,
   transactionPool: transactionPool,

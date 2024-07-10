@@ -14,5 +14,5 @@ router.route('/addtransaction', protect, authorize('user', 'admin')).post(addTra
 router.route('/transactions', protect, authorize('user', 'admin')).get(listTransactions);
 router.route('/transactionpool', protect, authorize('user', 'admin')).get(getTransactionPool);
 router.route('/minetransactions', protect, authorize('user', 'admin')).get(mineTransactions);
-router.route('/getbalance', protect, authorize('user', 'admin')).get(getWalletBalance);
+router.route('/getwallet', protect, authorize('user', 'admin')).get(getWalletBalance);
 export default router;
