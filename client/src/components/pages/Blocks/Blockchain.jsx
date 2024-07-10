@@ -1,11 +1,11 @@
-import { CreateBlocks } from "./CreateBlocks"
+import { MineBlocks } from "./MineBlocks"
 import { ListBlocks } from "./ListBlocks";
 
 export const Blockchain = () => {
   return (
     <>
-      <CreateBlocks /> 
+      <MineBlocks /> 
       <ListBlocks />
     </>
-  )
+  );
 }
