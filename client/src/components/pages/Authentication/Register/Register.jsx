@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { register } from '../../../services/Authentication/register';
+import { register } from '../../../../services/Authentication/register';
 import { RegisterForm } from './RegisterForm';
 
 export const Register = () => {

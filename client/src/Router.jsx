@@ -5,7 +5,7 @@ import { NotFound } from "./components/routes/NotFound";
 import { Blockchain } from "./components/pages/Blocks/Blockchain";
 import { Account } from "./components/pages/Wallet/Account";
 import { SendTransaction } from "./components/pages/Transactions/SendTransaction";
-import { Register } from "./components/pages/Authentication/Register";
+import { Register } from "./components/pages/Authentication/Register/Register";
 
 export const router = createBrowserRouter([
   {
