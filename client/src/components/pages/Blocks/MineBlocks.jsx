@@ -1,4 +1,4 @@
-import { mineBlock } from "../../../services/mineBlock";
+import { mineBlock } from "../../../services/Blocks/mineBlock";
 
 export const MineBlocks = () => {
   const handleMineBlock = async () => mineBlock();

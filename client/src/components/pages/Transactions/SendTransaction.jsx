@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { sendTransaction } from '../../../services/sendTransaction';
-import { getWallet } from '../../../services/getWallet';
+import { sendTransaction } from '../../../services/Wallet/sendTransaction';
+import { getWallet } from '../../../services/Wallet/getWallet';
 import { Wallet } from '../Wallet/Wallet';
 import { Modal } from '../../layout/Modal';
 import '../../../styles/modal.css';
 import { Transaction } from './Transaction';
 
 export const SendTransaction = () => {
-  const [transaction, setTransaction] = useState(null);
   const [amount, setAmount] = useState('');
   const [recipient, setRecipient] = useState('');
   const [modalMessage, setModalMessage] = useState('');

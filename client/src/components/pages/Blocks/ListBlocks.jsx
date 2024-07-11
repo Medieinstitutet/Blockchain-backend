@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { listBlocks } from '../../../services/listBlocks';
+import { listBlocks } from '../../../services/Blocks/listBlocks';
 
 export const ListBlocks = () => {
   const [blocks, setBlocks] = useState([]);
