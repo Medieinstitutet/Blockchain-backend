@@ -4,6 +4,7 @@ import { getWallet } from '../../../services/getWallet';
 import { Wallet } from '../Wallet/Wallet';
 import { Modal } from '../../layout/Modal';
 import '../../../styles/modal.css';
+import { Transaction } from './Transaction';
 
 export const SendTransaction = () => {
   const [transaction, setTransaction] = useState(null);
@@ -44,7 +45,7 @@ export const SendTransaction = () => {
     }
   };
 
-  const handleCreateTransaction = e => {
+  const handleSendTransaction = e => {
     e.preventDefault();
     createTransaction();
   };
@@ -61,26 +62,15 @@ export const SendTransaction = () => {
 
   return (
     <>
-      <form onSubmit={handleCreateTransaction}>
-        <Wallet />
-        <label>Amount:</label>
-        <input
-          required
-          type='number'
-          value={amount}
-          onChange={e => setAmount(e.target.value)}
+      <Wallet />
+        <Transaction
+          amount={amount}
+          recipient={recipient}
+          setAmount={setAmount}
+          setRecipient={setRecipient}
+          handleSendTransaction={handleSendTransaction}
         />
 
-        <label>Recipient:</label>
-        <input
-          required
-          type='text'
-          value={recipient}
-          onChange={e => setRecipient(e.target.value)}
-        />
-
-        <button type='submit'>Send Transaction</button>
-      </form>
       <Modal
         message={modalMessage}
         onClose={() => handleModalClose}

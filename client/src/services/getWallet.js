@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const getWallet = async () => {
   const token = localStorage.getItem('token');
@@ -8,4 +8,4 @@ export const getWallet = async () => {
   );
 
   return response;
-}
+};
