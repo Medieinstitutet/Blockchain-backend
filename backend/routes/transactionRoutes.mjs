@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-  addTransaction,
+  sendTransaction,
   getTransactionPool,
   getWalletBalance,
   listTransactions,
@@ -10,7 +10,7 @@ import { authorize, protect } from '../middleware/authorization.mjs';
 
 const router = express.Router();
  
-router.route('/addtransaction', protect, authorize('user', 'admin')).post(addTransaction);
+router.route('/sendtransaction', protect, authorize('user', 'admin')).post(sendTransaction);
 router.route('/transactions', protect, authorize('user', 'admin')).get(listTransactions);
 router.route('/transactionpool', protect, authorize('user', 'admin')).get(getTransactionPool);
 router.route('/minetransactions', protect, authorize('user', 'admin')).get(mineTransactions);

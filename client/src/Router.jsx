@@ -4,6 +4,7 @@ import { Layout } from "./components/routes/layout";
 import { NotFound } from "./components/routes/NotFound";
 import { Blockchain } from "./components/pages/Blocks/Blockchain";
 import { Account } from "./components/pages/Wallet/Account";
+import { SendTransaction } from "./components/pages/Transactions/SendTransaction";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: '/account',
         element: <Account />
+      },
+      {
+        path: '/transaction',
+        element: <SendTransaction />
       },
     ]
   }
