@@ -12,6 +12,9 @@ export const Layout = () => {
               <NavLink to={"/"}>Home</NavLink>
             </li>
             <li>
+              <NavLink to={"/register"}>Register</NavLink>
+            </li>
+            <li>
               <NavLink to={"/blockchain"}>Blockchain</NavLink>
             </li>
             <li>
