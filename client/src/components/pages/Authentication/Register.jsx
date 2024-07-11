@@ -1,21 +1,24 @@
 import { useState } from 'react';
 import { register } from '../../../services/Authentication/register';
+import { RegisterForm } from './RegisterForm';
 
 export const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const registerUser = async () => {
     try {
       const response = await register({ name, email, password });
+      setIsRegistered(true);
       console.log('Registration successful', response.data);
     } catch (err) {
       console.error('Registration failed', err);
     }
-  }
+  };
 
-  const handleRegister = (e) => {
+  const handleRegister = e => {
     e.preventDefault();
     if (!email || !password || !password) {
       console.log('Invalid credentials');
@@ -26,32 +29,16 @@ export const Register = () => {
 
   return (
     <>
-      <form onSubmit={handleRegister}>
-        <h3>Registration</h3>
-        <input
-          required
-          type='text'
-          placeholder='Name'
-          value={name}
-          onChange={e => setName(e.target.value)}
-        />
-        <input
-          required
-          type='email'
-          placeholder='Email'
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-        <input
-          required
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <button type='submit'>Register</button>
-      </form>
-      {name && <p>Registration successful! Welcome, {name}!</p>}
+      <RegisterForm
+        name={name}
+        email={email}
+        password={password}
+        setName={setName}
+        setEmail={setEmail}
+        setPassword={setPassword}
+        isRegistered={isRegistered}
+        handleRegister={handleRegister}
+      />
     </>
   );
 };
