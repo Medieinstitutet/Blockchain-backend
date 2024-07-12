@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { sendTransaction } from '../../../services/Wallet/sendTransaction';
+import { sendTransaction } from '../../../services/Transactions/sendTransaction';
 import { getWallet } from '../../../services/Wallet/getWallet';
 import { Wallet } from '../Wallet/Wallet';
 import { Modal } from '../../layout/Modal';
 import '../../../styles/modal.css';
-import { Transaction } from './Transaction';
+import { TransactionForm } from './TransactionForm';
 
 export const SendTransaction = () => {
   const [amount, setAmount] = useState('');
@@ -52,7 +52,7 @@ export const SendTransaction = () => {
   return (
     <>
       <Wallet />
-        <Transaction
+        <TransactionForm
           amount={amount}
           recipient={recipient}
           setAmount={setAmount}

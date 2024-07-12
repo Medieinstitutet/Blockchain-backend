@@ -5,7 +5,7 @@ export const sendTransaction = async (transactionData) => {
   const response = await axios.post(
     'http://localhost:5001/api/v1/wallet/sendtransaction',
     transactionData,
-    { headers: {Authorization: `Bearer ${token}`}}
+    { headers: {Authorization: `Bearer ${token}`} }
   );
 
   return response;

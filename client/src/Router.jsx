@@ -9,6 +9,7 @@ import { Register } from './components/pages/Authentication/Register/Register';
 import { Login } from './components/pages/Authentication/Login/Login';
 import { RequireAuth } from './components/routes/RequireAuth';
 import { Logout } from './components/pages/Authentication/Logout/Logout';
+import { ListTransactions } from './components/pages/Transactions/ListTransactions';
 
 export const router = createBrowserRouter([
   {
@@ -29,14 +30,6 @@ export const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: '/blockchain',
-        element: (
-          <RequireAuth>
-            <Blockchain />
-          </RequireAuth>
-        ),
-      },
-      {
         path: '/account',
         element: (
           <RequireAuth>
@@ -45,10 +38,26 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: '/blockchain',
+        element: (
+          <RequireAuth>
+            <Blockchain />
+          </RequireAuth>
+        ),
+      },
+      {
         path: '/transaction',
         element: (
           <RequireAuth>
             <SendTransaction />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: '/transactions',
+        element: (
+          <RequireAuth>
+            <ListTransactions />
           </RequireAuth>
         ),
       },

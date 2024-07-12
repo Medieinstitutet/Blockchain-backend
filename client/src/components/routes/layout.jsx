@@ -18,13 +18,16 @@ export const Layout = () => {
               <NavLink to={"/login"}>Login</NavLink>
             </li>
             <li>
-              <NavLink to={"/blockchain"}>Blockchain</NavLink>
-            </li>
-            <li>
               <NavLink to={"/account"}>Account</NavLink>
             </li>
             <li>
+              <NavLink to={"/blockchain"}>Blockchain</NavLink>
+            </li>
+            <li>
               <NavLink to={"/transaction"}>Transaction</NavLink>
+            </li>
+            <li>
+              <NavLink to={"/transactions"}>List-Transactions</NavLink>
             </li>
             <li>
               <NavLink to={"/logout"}>Logout</NavLink>

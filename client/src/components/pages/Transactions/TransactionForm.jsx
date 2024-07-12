@@ -1,4 +1,4 @@
-export const Transaction = ({
+export const TransactionForm = ({
   amount,
   recipient,
   setAmount,
