@@ -1,43 +1,61 @@
-import { createBrowserRouter } from "react-router-dom";
-import { Home } from "./components/pages/Home";
-import { Layout } from "./components/routes/layout";
-import { NotFound } from "./components/routes/NotFound";
-import { Blockchain } from "./components/pages/Blocks/Blockchain";
-import { Account } from "./components/pages/Wallet/Account";
-import { SendTransaction } from "./components/pages/Transactions/SendTransaction";
-import { Register } from "./components/pages/Authentication/Register/Register";
-import { Login } from "./components/pages/Authentication/Login/Login";
+import { createBrowserRouter } from 'react-router-dom';
+import { Home } from './components/pages/Home';
+import { Layout } from './components/routes/layout';
+import { NotFound } from './components/routes/NotFound';
+import { Blockchain } from './components/pages/Blocks/Blockchain';
+import { Account } from './components/pages/Wallet/Account';
+import { SendTransaction } from './components/pages/Transactions/SendTransaction';
+import { Register } from './components/pages/Authentication/Register/Register';
+import { Login } from './components/pages/Authentication/Login/Login';
+import { RequireAuth } from './components/routes/RequireAuth';
+import { Logout } from './components/pages/Authentication/Logout/Logout';
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     errorElement: <NotFound />,
     children: [
       {
         index: true,
-        element: <Home />
+        element: <Home />,
       },
       {
         path: '/register',
-        element: <Register />
+        element: <Register />,
       },
       {
         path: '/login',
-        element: <Login />
+        element: <Login />,
       },
       {
         path: '/blockchain',
-        element: <Blockchain />
+        element: (
+          <RequireAuth>
+            <Blockchain />
+          </RequireAuth>
+        ),
       },
       {
         path: '/account',
-        element: <Account />
+        element: (
+          <RequireAuth>
+            <Account />
+          </RequireAuth>
+        ),
       },
       {
         path: '/transaction',
-        element: <SendTransaction />
+        element: (
+          <RequireAuth>
+            <SendTransaction />
+          </RequireAuth>
+        ),
       },
-    ]
-  }
+      {
+        path: '/logout',
+        element: <Logout />,
+      },
+    ],
+  },
 ]);

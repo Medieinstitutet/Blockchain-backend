@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { register } from '../../../../services/Authentication/register';
 import { RegisterForm } from './RegisterForm';
 import { Modal } from '../../../layout/Modal';
+import { Logout } from '../Logout/Logout';
 
 export const Register = () => {
   const [name, setName] = useState('');
@@ -13,7 +14,7 @@ export const Register = () => {
     try {
       const response = await register({ name, email, password });
       localStorage.setItem('token', response.data.token);
-      
+
       showModal(`Registration successful! Welcome, ${name}!`);
       console.log(response.data);
     } catch (err) {
@@ -52,6 +53,7 @@ export const Register = () => {
         setPassword={setPassword}
         handleRegister={handleRegister}
       />
+      <Logout />
 
       <Modal
         message={modalMessage}

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { login } from '../../../../services/Authentication/login';
 import { LoginForm } from './LoginForm';
 import { Modal } from '../../../layout/Modal';
+import { Logout } from '../Logout/Logout';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +12,8 @@ export const Login = () => {
   const loginUser = async () => {
     try {
       const response = await login({ email, password });
+      localStorage.setItem('token', response.data.token);
+
       showModal(`Log in successful! Welcome back, ${email}`);
       console.log(response.data);
     } catch (err) {
@@ -47,6 +50,7 @@ export const Login = () => {
         setPassword={setPassword}
         handleLogin={handleLogin}
       />
+      <Logout />
 
       <Modal
         message={modalMessage}
