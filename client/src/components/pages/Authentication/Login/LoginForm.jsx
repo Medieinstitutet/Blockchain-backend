@@ -3,7 +3,6 @@ export const LoginForm = ({
   password,
   setEmail,
   setPassword,
-  isLogedIn,
   handleLogin,
 }) => {
   return (
@@ -25,7 +24,6 @@ export const LoginForm = ({
         />
         <button type='submit'>Log in</button>
       </form>
-      {isLogedIn && <p>Log in successful! Welcome back, {email}!</p>}
     </>
   );
 };

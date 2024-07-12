@@ -15,4 +15,5 @@ router.route('/transactions', protect, authorize('user', 'admin')).get(listTrans
 router.route('/transactionpool', protect, authorize('user', 'admin')).get(getTransactionPool);
 router.route('/minetransactions', protect, authorize('user', 'admin')).get(mineTransactions);
 router.route('/getwallet', protect, authorize('user', 'admin')).get(getWalletBalance);
+
 export default router;

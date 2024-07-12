@@ -14,22 +14,12 @@ export const SendTransaction = () => {
   const createTransaction = async () => {
     try {
       // Send transaction request to the server
-      const response = await sendTransaction({ recipient, amount });
-      const { id } = response.data;
+      await sendTransaction({ recipient, amount });
 
       // Fetch the wallet details after the transaction
       const walletResponse = await getWallet();
       const { address, balance } = walletResponse.data.data;
 
-      const transactionDetails = {
-        id,
-        amount,
-        recipient,
-        sender: address,
-        balance,
-      };
-
-      setTransaction(transactionDetails);
       showModal(
         <div>
           <h3>Transaction Details</h3>

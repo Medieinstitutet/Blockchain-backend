@@ -4,5 +4,5 @@ import { authorize, protect } from '../middleware/authorization.mjs';
 
 const router = express.Router();
 
-router.route('/mine', protect, authorize('user', 'admin')).post(mineBlock);
+router.route('/mine', protect, authorize('admin')).post(mineBlock);
 export default router;

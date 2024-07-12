@@ -5,8 +5,7 @@ export const RegisterForm = ({
   setName,
   setEmail,
   setPassword,
-  isRegistered,
-  handleRegister,
+  handleRegister
 }) => {
   return (
     <>
@@ -35,7 +34,6 @@ export const RegisterForm = ({
         />
         <button type='submit'>Register</button>
       </form>
-      {isRegistered && <p>Registration successful! Welcome, {name}!</p>}
     </>
   );
 };
