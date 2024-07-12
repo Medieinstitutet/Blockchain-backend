@@ -6,6 +6,7 @@ import { Blockchain } from "./components/pages/Blocks/Blockchain";
 import { Account } from "./components/pages/Wallet/Account";
 import { SendTransaction } from "./components/pages/Transactions/SendTransaction";
 import { Register } from "./components/pages/Authentication/Register/Register";
+import { Login } from "./components/pages/Authentication/Login/Login";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,14 @@ export const router = createBrowserRouter([
         element: <Home />
       },
       {
+        path: '/register',
+        element: <Register />
+      },
+      {
+        path: '/login',
+        element: <Login />
+      },
+      {
         path: '/blockchain',
         element: <Blockchain />
       },
@@ -28,10 +37,6 @@ export const router = createBrowserRouter([
       {
         path: '/transaction',
         element: <SendTransaction />
-      },
-      {
-        path: '/register',
-        element: <Register />
       },
     ]
   }
