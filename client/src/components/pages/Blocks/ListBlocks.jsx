@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import '../../../styles/listBlocks.css';
 import { listBlocks } from '../../../services/Blocks/listBlocks';
 
 export const ListBlocks = () => {
@@ -18,21 +19,70 @@ export const ListBlocks = () => {
   }, []);
 
   return (
-    <ul>
-      {blocks.map((block, index) => {
-        return (
-          <li key={block._id}>
+    <div className='blockchain-container'>
+      <h2>Blockchain</h2>
+      <ul className='block-list'>
+        {blocks.map((block, index) => (
+          <li
+            key={block._id}
+            className='block-item'>
             <h3>{`Block Index: ${index}`}</h3>
             <p>{`Difficulty: ${block.difficulty}`}</p>
             <p>{`Block Hash: ${block.hash}`}</p>
             <p>{`Last Block Hash: ${block.lastHash}`}</p>
-            <p>{`Transaction Data: ${JSON.stringify(block.data)}`}</p>
             <p>{`Block nonce: ${block.nonce}`}</p>
             <p>{`Block timestamp: ${block.timestamp}`}</p>
-            {console.log(block.data)}
+            <h4>Transactions Data:</h4>
+            <ul className='transaction-list'>
+              {block.data && block.data.length > 0 ? (
+                block.data.map(transaction => (
+                  <li
+                    key={transaction.id}
+                    className='transaction-item'>
+                    <p>
+                      <strong>Transaction ID:</strong> {transaction?.id}
+                    </p>
+                    <p>
+                      <strong>Sender:</strong>{' '}
+                      {transaction.inputMap?.address || 'N/A'}
+                    </p>
+                    <p>
+                      <strong>Recipient(s):</strong>{' '}
+                      {Object.keys(transaction.outputMap).map(
+                        (recipient, recipientIndex) => (
+                          <span key={recipientIndex}>
+                            {recipient}
+                            {recipientIndex <
+                            Object.keys(transaction.outputMap).length - 1
+                              ? ', '
+                              : ''}
+                          </span>
+                        )
+                      )}
+                    </p>
+                    <p>
+                      <strong>Amount(s):</strong>{' '}
+                      {Object.values(transaction.outputMap).map(
+                        (amount, amountIndex) => (
+                          <span key={amountIndex}>
+                            {amount}
+                            {amountIndex <
+                            Object.values(transaction.outputMap).length - 1
+                              ? ', '
+                              : ''}
+                          </span>
+                        )
+                      )}
+                    </p>
+                  </li>
+                ))
+              ) : (
+                <li>No transactions in this block.</li>
+              )}
+            </ul>
           </li>
-        );
-      })}
-    </ul>
+        ))}
+      </ul>
+    </div>
   );
 };
