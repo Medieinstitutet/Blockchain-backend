@@ -5,7 +5,9 @@ export const initializeBlockchain = async () => {
   try {
     const blockCount = await BlockModel.countDocuments();
     
-    if (blockCount === 0) {
+    if (blockCount > 0) {
+      console.log('Genesis already in database');
+    } else {
       await BlockModel.create(GENESIS_DATA);
       console.log('Genesis block added to the database');
     }

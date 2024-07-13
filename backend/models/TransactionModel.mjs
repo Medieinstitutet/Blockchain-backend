@@ -31,6 +31,12 @@ const transactionSchema = new mongoose.Schema({
     of: mongoose.Schema.Types.Mixed,
     required: [true, 'Input map is required'],
   },
+  status: {
+    type: String,
+    enum: ['pending', 'mined'],
+    default: 'pending',
+    required: [true, 'Status is required']
+  },
 })
 
 export default mongoose.model('TransactionModel', transactionSchema);
