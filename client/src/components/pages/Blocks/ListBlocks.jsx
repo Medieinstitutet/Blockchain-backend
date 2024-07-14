@@ -48,31 +48,11 @@ export const ListBlocks = () => {
                     </p>
                     <p>
                       <strong>Recipient(s):</strong>{' '}
-                      {Object.keys(transaction.outputMap).map(
-                        (recipient, recipientIndex) => (
-                          <span key={recipientIndex}>
-                            {recipient}
-                            {recipientIndex <
-                            Object.keys(transaction.outputMap).length - 1
-                              ? ', '
-                              : ''}
-                          </span>
-                        )
-                      )}
+                      {Object.keys(transaction.outputMap).join(', ')}
                     </p>
                     <p>
                       <strong>Amount(s):</strong>{' '}
-                      {Object.values(transaction.outputMap).map(
-                        (amount, amountIndex) => (
-                          <span key={amountIndex}>
-                            {amount}
-                            {amountIndex <
-                            Object.values(transaction.outputMap).length - 1
-                              ? ', '
-                              : ''}
-                          </span>
-                        )
-                      )}
+                      {Object.values(transaction.outputMap).join(', ')}
                     </p>
                   </li>
                 ))

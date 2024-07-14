@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { sendTransaction } from '../../../services/Transactions/sendTransaction';
 import { getWallet } from '../../../services/Wallet/getWallet';
 import { Wallet } from '../Wallet/Wallet';
@@ -7,14 +7,25 @@ import '../../../styles/modal.css';
 import { TransactionForm } from './TransactionForm';
 
 export const SendTransaction = () => {
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState();
   const [recipient, setRecipient] = useState('');
   const [modalMessage, setModalMessage] = useState('');
+  const [previousRecipient, setPreviousRecipient] = useState('');
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    if (recipient === previousRecipient) {
+      setTotalAmount(prevAmount => prevAmount + parseFloat(amount || 0));
+    } else {
+      setTotalAmount(parseFloat(amount || 0));
+      setPreviousRecipient(recipient);
+    }
+  }, [amount, recipient]);
 
   const createTransaction = async () => {
     try {
       // Send transaction request to the server
-      await sendTransaction({ recipient, amount });
+      await sendTransaction({ recipient, amount: totalAmount });
 
       // Fetch the wallet details after the transaction
       const walletResponse = await getWallet();
@@ -52,13 +63,13 @@ export const SendTransaction = () => {
   return (
     <>
       <Wallet />
-        <TransactionForm
-          amount={amount}
-          recipient={recipient}
-          setAmount={setAmount}
-          setRecipient={setRecipient}
-          handleSendTransaction={handleSendTransaction}
-        />
+      <TransactionForm
+        amount={amount}
+        recipient={recipient}
+        setAmount={setAmount}
+        setRecipient={setRecipient}
+        handleSendTransaction={handleSendTransaction}
+      />
 
       <Modal
         message={modalMessage}
