@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { sendTransaction } from '../../../services/Transactions/sendTransaction';
 import { getWallet } from '../../../services/Wallet/getWallet';
 import { Wallet } from '../Wallet/Wallet';
@@ -10,22 +10,11 @@ export const SendTransaction = () => {
   const [amount, setAmount] = useState();
   const [recipient, setRecipient] = useState('');
   const [modalMessage, setModalMessage] = useState('');
-  const [previousRecipient, setPreviousRecipient] = useState('');
-  const [totalAmount, setTotalAmount] = useState(0);
-
-  useEffect(() => {
-    if (recipient === previousRecipient) {
-      setTotalAmount(prevAmount => prevAmount + parseFloat(amount || 0));
-    } else {
-      setTotalAmount(parseFloat(amount || 0));
-      setPreviousRecipient(recipient);
-    }
-  }, [amount, recipient]);
 
   const createTransaction = async () => {
     try {
       // Send transaction request to the server
-      await sendTransaction({ recipient, amount: totalAmount });
+      await sendTransaction({ recipient, amount });
 
       // Fetch the wallet details after the transaction
       const walletResponse = await getWallet();

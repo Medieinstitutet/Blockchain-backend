@@ -21,6 +21,14 @@ export default class TransactionPool {
     }
   }
 
+  clearTransactionByAddress(address) {
+    for (const transactionId in this.transactionMap) {
+      if (this.transactionMap[transactionId].address === address) {
+        delete this.transactionMap[transactionId];
+      }
+    }
+  }
+
   clearTransactions() {
     this.transactionMap = {};
   }
@@ -33,13 +41,13 @@ export default class TransactionPool {
     const transactions = Object.values(this.transactionMap);
 
     return transactions.find(
-      (transaction) => transaction.inputMap.address === address
+      transaction => transaction.inputMap.address === address
     );
   }
 
   validateTransactions() {
     const validTransactions = Object.values(this.transactionMap).filter(
-      (transaction) => Transaction.validate(transaction)
+      transaction => Transaction.validate(transaction)
     );
     return validTransactions;
   }

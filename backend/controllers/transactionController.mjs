@@ -10,16 +10,20 @@ import { wallet } from './authController.mjs';
 export const sendTransaction = (req, res, next) => {
   const { id, recipient, amount } = req.body;
 
-  let transaction = transactionPool.transactionExist({
+  // Check if a transaction already exists for the current user's wallet
+  let existingTransaction = transactionPool.transactionExist({
     address: wallet.publicKey,
   });
 
+  // Clear any existing transaction for the current user's wallet
+  if (existingTransaction) {
+    transactionPool.clearTransactionByAddress(wallet.publicKey);
+  }
+
+  // Always create a new transaction
+  let transaction;
   try {
-    if (transaction) {
-      transaction.update({ sender: wallet, recipient, amount });
-    } else {
-      transaction = wallet.createTransaction({ recipient, amount });
-    }
+    transaction = wallet.createTransaction({ recipient, amount });
   } catch (error) {
     return res
       .status(400)
